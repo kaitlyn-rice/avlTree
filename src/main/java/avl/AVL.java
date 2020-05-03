@@ -42,6 +42,24 @@ public class AVL {
    * pre: n is not null */
   private void bstInsert(Node n, String w) {
     // TODO
+	if (w.compareTo(n.word) < 0) {
+	    if (n.left != null)
+		bstInsert(n.left, w);
+	    else {
+		size++;
+		n.left = new Node(w);
+		return;
+	    }
+	} else if (w.compareTo(n.word) > 0) {
+	    if (n.right != null)
+		bstInsert(n.right, w);
+	    else {
+		size++;
+		n.right = new Node(w);
+		return;
+	    }
+	} else
+	    return;
   }
 
   /** insert w into the tree, maintaining AVL balance
