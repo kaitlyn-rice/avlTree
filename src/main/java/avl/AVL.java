@@ -46,16 +46,18 @@ public class AVL {
 	    if (n.left != null)
 		bstInsert(n.left, w);
 	    else {
+	    //if (n == null) {
+		n.left = new Node(w, n);
 		size++;
-		n.left = new Node(w);
 		return;
 	    }
 	} else if (w.compareTo(n.word) > 0) {
 	    if (n.right != null)
 		bstInsert(n.right, w);
 	    else {
+	    //if (n == null){
+		n.right = new Node(w, n);
 		size++;
-		n.right = new Node(w);
 		return;
 	    }
 	} else
