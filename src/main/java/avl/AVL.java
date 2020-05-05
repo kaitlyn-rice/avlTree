@@ -66,18 +66,36 @@ public class AVL {
   *  precondition: the tree is AVL balanced */
   public void avlInsert(String w) {
     // TODO
-/*	if (root == null) {
+	if (root == null) {
 	    root = new Node(w);
 	    size = 1;
 	    return;
 	}
-	avlInsert(root, w); */
+	avlInsert(root, w);
   }
 
   /* insert w into the tree, maintaining AVL balance
    *  precondition: the tree is AVL balanced and n is not null */
   private void avlInsert(Node n, String w) {
     // TODO
+	if (w.compareTo(n.word) < 0) {
+	    if (n.left != null)
+		avlInsert(n.left, w);
+	    else {
+		n.left = new Node(w, n);
+		size++;
+	    }
+	} else if (w.compareTo(n.word) > 0) {
+	    if (n.right != null)
+		avlInsert(n.right, w);
+	    else {
+		n.right = new Node(w, n);
+		size++;
+	    }
+	} else
+	    return;
+	n.height = Math.max(height(n.left), height(n.right)) + 1;
+	rebalance(n);
   }
 
   /** do a left rotation: rotate on the edge from x to its right child.
@@ -134,7 +152,6 @@ public class AVL {
   *  precondition: none of n's descendants violates the AVL property */
   public void rebalance(Node n) {
     // TODO
-	//n.height = Math.max(height(n.left), height(n.right)) + 1;
 	int bf = bal(n);
 	if (bf < -1) {
 	    if (bal(n.left) > 0)
@@ -150,7 +167,7 @@ public class AVL {
   /* returns balence factor of n */
   public int bal(Node n) {
 	if (n == null)
-	    return -1;
+	    return 0;
 	return height(n.right) - height(n.left);
   }
 
