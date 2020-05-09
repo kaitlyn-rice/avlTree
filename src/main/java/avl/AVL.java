@@ -1,3 +1,8 @@
+/* Author: Kaitlyn Rice
+   Date: 5/11/20
+   Purpose: Creating AVL tree
+*/
+
 package avl;
 
 public class AVL {
@@ -94,7 +99,6 @@ public class AVL {
 	    }
 	} else
 	    return;
-	n.height = Math.max(height(n.left), height(n.right)) + 1;
 	rebalance(n);
   }
 
@@ -103,11 +107,9 @@ public class AVL {
   public void leftRotate(Node x) {
     // TODO
 	Node y = x.right;
-
 	x.right = y.left;
 	if (y.left != null)
 	    y.left.parent = x;
-
 	y.parent = x.parent;
 	if (x.parent == null)
 	    root = y;
@@ -115,10 +117,8 @@ public class AVL {
 	    x.parent.left = y;
 	else
 	    x.parent.right = y;
-
 	y.left = x;
 	x.parent = y;
-
 	x.height = Math.max(height(x.left), height(x.right)) + 1;
 	y.height = Math.max(height(y.left), height(y.right)) + 1;
   }
@@ -128,11 +128,9 @@ public class AVL {
   public void rightRotate(Node y) {
     // TODO
 	Node x = y.left;
-
 	y.left = x.right;
 	if (x.right != null)
 	    x.right.parent = y;
-
 	x.parent = y.parent;
 	if (y.parent == null)
 	    root = x;
@@ -140,10 +138,8 @@ public class AVL {
 	    y.parent.right = x;
 	else
 	    y.parent.left = x;
-
 	x.right = y;
 	y.parent = x;
-
 	x.height = Math.max(height(x.left), height(x.right)) + 1;
 	y.height = Math.max(height(y.left), height(y.right)) + 1;
   }
@@ -152,12 +148,13 @@ public class AVL {
   *  precondition: none of n's descendants violates the AVL property */
   public void rebalance(Node n) {
     // TODO
+	n.height = Math.max(height(n.left), height(n.right)) + 1;
 	int bf = bal(n);
 	if (bf < -1) {
 	    if (bal(n.left) > 0)
 		leftRotate(n.left);
 	    rightRotate(n);
-	} else if (bf > 1) {
+	}else if (bf > 1) {
 	    if (bal(n.right) < 0)
 		rightRotate(n.right);
 	    leftRotate(n);
@@ -175,7 +172,7 @@ public class AVL {
   public int height(Node n) {
 	if (n == null)
 	    return -1;
-	return n.height;
+	return Math.max(height(n.left), height(n.right)) + 1;
   }
 
   /** remove the word w from the tree */
