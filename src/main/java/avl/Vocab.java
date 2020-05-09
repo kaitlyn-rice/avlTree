@@ -1,3 +1,8 @@
+/* Author: Kaitlyn Rice
+   Date: May 11, 2020
+   Purpose: Use avl tree to count words in a file
+*/
+
 package avl;
 
 import java.util.Scanner;
@@ -9,10 +14,17 @@ public class Vocab {
 
     try {
       // TODO: Change this to make it handle multiple input files.
-      File f = new File(args[0]);
-      Scanner sc = new Scanner(f);
-      Count c = wordCount(sc);
-      System.out.println(c);
+      if (args.length > 0){
+         File f = new File(args[0]);
+         Scanner sc = new Scanner(f);
+         Count c = wordCount(sc);
+         System.out.println(c);
+      }
+      else {
+         Scanner sc = new Scanner(System.in);
+         Count c = wordCount(sc);
+         System.out.println(c);
+      }
     } catch (FileNotFoundException exc) {
       System.out.println("Could not find file " + args[0]);
     }
@@ -30,11 +42,12 @@ public class Vocab {
     while (sc.hasNext()) {
       // read and parse each word
       String word = sc.next();
-
+      c.total++;
       // remove non-letter characters, convert to lower case:
       word = word.replaceAll("[^a-zA-Z ]", "").toLowerCase();
       tree.avlInsert(word);
     }
+    c.unique = tree.getSize();
     return c;
   }
 }
