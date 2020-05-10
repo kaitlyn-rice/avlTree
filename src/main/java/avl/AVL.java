@@ -177,12 +177,50 @@ public class AVL {
 
   /** remove the word w from the tree */
   public void remove(String w) {
+    if (root == null) {
+	return;
+    }
     remove(root, w);
   }
 
   /* remove v from the tree rooted at n */
   private void remove(Node n, String w) {
+	if (w.compareTo(n.word) < 0) {
+	    if (n.left != null)
+	        remove(n.left, w);
+	}
+	else if (w.compareTo(n.word) > 0) {
+	    if (n.right != null)
+		remove(n.right, w);
+	}
+	else {
+	    Node temp = null;
+	    if (n.left == null || n.right == null) {
+		if (n.left == null) {
+		    temp = n.right;
+		    n = temp;
+		} else {
+		    temp = n.left;
+		    n = temp;
+		}
+	    }
+	    else {
+		temp = minNode(n.right);
+		n.word = temp.word;
+		remove(n.right, temp.word);
+	    }
+	}
+	if (n != null)
+	    rebalance(n);
     return; // (enhancement TODO - do the base assignment first)
+  }
+
+  /* Returns smallest node */
+  private Node minNode (Node n) {
+	Node cur = n;
+	while (cur.left != null)
+	    cur = cur.left;
+	return cur;
   }
 
   /** print a sideways representation of the tree - root at left,
