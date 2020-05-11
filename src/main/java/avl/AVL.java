@@ -3,6 +3,11 @@
    Purpose: Creating AVL tree
 */
 
+/* Enhancement explaination: used insert code as a base
+   set up for remove then drew a random trees to find
+   the different otucomes. Additional minNode method to
+   assist finding the smallest node. */
+
 package avl;
 
 public class AVL {
